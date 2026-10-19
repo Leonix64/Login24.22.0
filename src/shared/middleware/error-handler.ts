@@ -7,7 +7,7 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
         res.status(400).json({
             error: {
                 code: "VALIDATION_ERROR",
-                message: "invalid request data",
+                message: "Invalid data",
                 details: err.issues.map((i) => ({ path: i.path.join("."), message: i.message })),
             },
         });
@@ -19,12 +19,12 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
         return;
     }
 
-    // JSON parse error handling
+    // JSON mal formado en el body
     if (typeof err === "object" && err !== null && "type" in err && err.type === "entity.parse.failed") {
-        res.status(400).json({ error: { code: "INVALID_JSON", message: "invalid JSON" } });
+        res.status(400).json({ error: { code: "INVALID_JSON", message: "Invalid JSON" } });
         return;
     }
 
     req.log.error(err);
-    res.status(500).json({ error: { code: "INTERNAL_ERROR", message: "internal server error" } });
+    res.status(500).json({ error: { code: "INTERNAL_ERROR", message: "Internal server error" } });
 };

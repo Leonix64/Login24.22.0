@@ -3,7 +3,6 @@ import helmet from "helmet";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { pinoHttp } from "pino-http";
-
 import { env } from "./config/env.js";
 import { logger } from "./config/logger.js";
 import { apiRouter } from "./routes.js";
@@ -33,7 +32,7 @@ app.get("/health", (_req, res) => {
 app.use("/api", apiRouter);
 
 app.use((_req, _res, next) => {
-    next(new AppError(404, "not found", "NOT_FOUND"));
+    next(new AppError(404, "Route not found", "NOT_FOUND"));
 });
 
 app.use(errorHandler);
